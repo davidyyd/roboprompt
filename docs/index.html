@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="RoboPrompt can leverage off-the-shelf text-only LLMs to directly predict robot actions through ICL without training. ">
+  <meta name="keywords" content="In-Context Learning, LMMs, Robot Learning">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>In-Context Learning Enables Robot Action Prediction in LLMs</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    
+    function gtag() {
+      dataLayer.push(arguments);
+ }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/bulma.min.css">
+  <link rel="stylesheet" href="css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="css/bulma-slider.min.css">
+  <link rel="stylesheet" href="css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="css/index.css">
+  <link rel="icon" href="images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="js/fontawesome.all.min.js"></script>
+  <script src="js/bulma-carousel.min.js"></script>
+  <script src="js/bulma-slider.min.js"></script>
+  <script src="js/index.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MathJax Example</title>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</head>
+<body>
+
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">
+ In-Context Learning Enables Robot Action Prediction in LLMs
+          </h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://davidyyd.github.io">Yida Yin*</a>,</span>
+            <span class="author-block">
+                <a href="https://zekaiwang04.github.io">Zekai Wang*</a><sup></sup>,</span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?hl=en&user=1_IIcds8es4C">Yuvan Sharma</a>,
+            </span>
+
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=AzlUrvUAAAAJ&hl=en">Dantong Niu</a>,
+            </span>
+
+            <span class="author-block">
+              <a href="https://people.eecs.berkeley.edu/~trevor/">Trevor Darrell</a>,
+            </span>
+            <span class="author-block">
+              <a href="https://roeiherz.github.io/">Roei Herzig</a>
+            </span>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">University of California, Berkeley</span>
+          </div>
+
+            
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2410.12782"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/davidyyd/roboprompt"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" style="margin-top: -50px; padding-top: 0;">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Real Robot Demonstrations</h2>
+      </div>
+    </div>
+  </div>
+</section>
+      
+    <div class="columns is-centered">
+      <div class="column is-3">
+        <video poster="" id="" autoplay controls loop style="width: 600px; height: 250px;">
+          <source src="real_videos/stack.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="column is-3">
+        <video poster="" id="" autoplay controls loop style="width: 600px; height: 250px;">
+          <source src="real_videos/destack.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="column is-3">
+        <video poster="" id="" autoplay controls loop style="width: 600px; height: 250px;">
+          <source src="real_videos/push_button.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-3">
+        <video poster="" id="" autoplay controls loop style="width: 600px; height: 250px;">
+          <source src="real_videos/close_laptop.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="column is-3">
+        <video poster="" id="" autoplay controls loop style="width: 600px; height: 250px;">
+          <source src="real_videos/unplug.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="column is-3">
+        <video poster="" id="" autoplay controls loop style="width: 600px; height: 250px;">
+          <source src="real_videos/push_multiple_buttons.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+ Recently, Large Language Models (LLMs) have achieved remarkable success using in-context learning (ICL) in the language domain. However, leveraging the ICL capabilities within off-the-shelf LLMs to directly predict robot actions remains largely unexplored. In this paper, we introduce RoboPrompt, a framework that enables off-the-shelf text-only LLMs to directly predict robot actions through ICL without training. Our approach first heuristically identifies keyframes that capture important moments from an episode. Next, we extract end-effector actions from these keyframes as well as the estimated initial object poses, and both are converted into textual descriptions. Finally, we construct a structured template to form ICL demonstrations from these textual descriptions and a task instruction. This enables an LLM to directly predict robot actions at test time. Through extensive experiments and analysis, RoboPrompt shows stronger performance over zero-shot and ICL baselines in simulated and real-world settings.
+          </p>
+          </p>
+        </div>
+      </div>
+    </div>
+    <hr>
+  </div>
+</section>
+
+<!--######################################################################################-->
+<!--this is for teaser-->
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+      <h2 class="title is-3">RoboPrompt Framework</h2>
+      <div class="column is-full-width">
+        <img style="width:950px" src="images/teaser.pdf">
+
+        <div class="subtitle content has-text-justified">
+          <p>&nbsp;</p>
+ We introduce RoboPrompt, a framework that enables an off-the-shelf text-only LLM to directly predict robot actions through in-context learning (ICL) examples without any additional training. Our method first identifies keyframes where critical robot actions occur. We next estimate <strong style="color: #E48253;">initial object poses</strong> and extract <strong style="color: #0071BC;">robot actions</strong> from keyframes, and both of them are converted into textual descriptions. Using this textual information along with the given <strong style="color: #68349A;">instruction</strong>, we construct a structured prompt as ICL demonstrations, enabling the LLM to predict robot actions directly for an unseen test sample.
+          <p>&nbsp;</p>
+        </div>
+
+      </div>
+      </div>
+    </div>
+    <hr>
+  </div>
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{yin2024incontextlearningenablesrobot,
+ title={In-Context Learning Enables Robot Action Prediction in LLMs}, 
+ author={Yida Yin and Zekai Wang and Yuvan Sharma and Dantong Niu and Trevor Darrell and Roei Herzig},
+ year={2024},
+ booktitle={arXiv preprint arXiv:2406.11815},
+}</code></pre>
+  </div>
+</section>
+
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="https://arxiv.org/abs/2410.12782">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/davidyyd/roboprompt" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+ Acknowledgment: We would like to thank Max Fu, Baifeng Shi, Brandon Huang, Chancharik Mitra, Boya Zeng, and Zhuang Liu for helpful feedback, and Ilija Radosavovic for stimulating discussions. This project was partly supported by the BAIR's industrial alliance programs and the BDD program. 
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body>
+</html>
+

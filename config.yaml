@@ -1,0 +1,28 @@
+method:
+    name: "RoboPrompt"
+
+rlbench:
+    task_name: "close_jar"
+    cameras: [front,left_shoulder,right_shoulder,wrist]
+    tasks: [close_jar]
+    demo_path: /my/demo/path
+    episode_length: 25
+    time_in_state: True
+    headless: True
+
+framework:
+    gpu: 0
+    logdir: /my/demo/logdir
+    start_seed: 0
+    record_every_n: 5
+    eval_envs: 1
+    eval_from_eps_number: 0
+    eval_episodes: 25
+    eval_save_metrics: True
+
+cinematic_recorder:
+    enabled: False
+    camera_resolution: [1280, 720]
+    fps: 30
+    rotate_speed: 0.005
+    save_path: './videos/'
