@@ -315,7 +315,7 @@ class place_wine_at_rack_location(base_task_handler):
             "wine_bottle_visual": "wine",
             "rack_top_visual": "rack",
         }
-        super().__init__(system_prompt, sim_name_to_real_name, num_demos, num_keypoints)
+        super().__init__(sim_name_to_real_name)
 
 
 class put_groceries_in_cupboard(base_task_handler):
