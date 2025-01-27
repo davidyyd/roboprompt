@@ -68,11 +68,11 @@ Our code is built on top of [RLBench](https://github.com/stepjam/RLBench) simula
 ## Citation
 If you find RoboPrompt helpful, please consider citing:
 ```bibtex
-@article{yin2024incontextlearningenablesrobot,
+@inproceedings{yin2025incontextlearningenablesrobot,
       title={In-Context Learning Enables Robot Action Prediction in LLMs}, 
       author={Yida Yin and Zekai Wang and Yuvan Sharma and Dantong Niu and Trevor Darrell and Roei Herzig},
-      year={2024},
-      booktitle={arXiv preprint arXiv:2406.11815},
+      year={2025},
+      booktitle={ICRA},
 }
 ```
 
