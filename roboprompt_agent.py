@@ -9,12 +9,40 @@ from form_icl_demonstrations import create_task_handler, SYSTEM_PROMPT
 from utils import SCENE_BOUNDS, ROTATION_RESOLUTION, discrete_euler_to_quaternion, CAMERAS
 from openai import OpenAI
 
+def openai_call(model_name, messages):
+    client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+    completion = client.chat.completions.create(
+        model=model_name,
+        messages=messages
+    )
+    return completion.choices[0].message.content
+
+def huggingface_call(model, tokenizer, messages):
+    text = tokenizer.apply_chat_template(
+        messages,
+        tokenize=False,
+        add_generation_prompt=True
+    )
+    model_inputs = tokenizer([text], return_tensors="pt").to(device)
+
+    generated_ids = model.generate(
+        model_inputs.input_ids,
+        max_new_tokens=512
+    )
+    generated_ids = [
+        output_ids[len(input_ids):] for input_ids, output_ids in zip(model_inputs.input_ids, generated_ids)
+    ]
+
+    response = tokenizer.batch_decode(generated_ids, skip_special_tokens=True)[0]
+    return response
+
 class RoboPromptAgent(Agent):
-    def __init__(self, task_name):
+    def __init__(self, task_name, model_config):
         self.episode_id = -1
         self.device = 'cuda'
         self.task_name = task_name
-
+        self.model_config = model_config
+        
     def _preprocess(self, obs, step, **kwargs):
         rgb_dict = {}
         mask_id_to_sim_name = {}
@@ -151,6 +179,19 @@ class RoboPromptAgent(Agent):
         self.savedir = savedir
 
         self.handler = create_task_handler(self.task_name)
+        
+        if self.model_config.llm_call_style == "openai":
+            self.llm_call = lambda messages: openai_call(self.model_config.name, messages)
+        elif self.model_config.llm_call_style == "huggingface":
+            from transformers import AutoModelForCausalLM, AutoTokenizer
+            print("loading model from huggingface")
+            model = AutoModelForCausalLM.from_pretrained(
+                self.model_config.name,
+                torch_dtype="auto",
+                device_map="auto"
+            )
+            tokenizer = AutoTokenizer.from_pretrained(self.model_config.name)
+            self.llm_call = lambda messages: huggingface_call(model, tokenizer, messages)
         return
 
     def build(self, training: bool, device=None):

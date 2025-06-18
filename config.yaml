@@ -1,6 +1,10 @@
 method:
     name: "RoboPrompt"
 
+model:
+    llm_call_style: "openai"
+    name: "gpt-4-turbo"
+
 rlbench:
     task_name: "close_jar"
     cameras: [front,left_shoulder,right_shoulder,wrist]

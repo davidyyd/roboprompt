@@ -48,19 +48,26 @@ To support more tasks, you can add your own task handler in ``form_icl_demonstra
 ## In-Context Learning
 
 To perform In-Context Learning, you can run the following command. Replace ``$method`` with the task name and ``$test_data_path`` with the path where you store your ***test data***. To turn on the video recorder, you can set ``cinematic_recorder.enabled=True``, and this might slow down the inference speed\
-By default, we evaluate RoboPrompt on 25 episodes for each task and allow the agent to take a maximum of 25 steps.
+By default, we evaluate RoboPrompt on 25 episodes for each task and allow the agent to take a maximum of 25 steps with ``gpt-4-turbo``.
 ```bash
 export OPENAI_API_KEY=$your_api_key # Set your OpenAI API key
 DISPLAY=:0.0 python main.py \
-      --rlbench.tasks=[$method] \
-      --rlbench.task_name=$method \
-      --rlbench.episode_length=25 \
-      --rlbench.demo_path=$test_data_path \
-      --framework.gpu=0 \
-      --framework.logdir=$log_dir \
-      --framework.eval_episodes=25 \
-      --rlbench.headless=True
+      model.llm_call_style=openai \
+      model.name=gpt-4-turbo \
+      rlbench.tasks=[$method] \
+      rlbench.task_name=$method \
+      rlbench.episode_length=25 \
+      rlbench.demo_path=$test_data_path \
+      framework.gpu=0 \
+      framework.logdir=$log_dir \
+      framework.eval_episodes=25 \
+      rlbench.headless=True \
 ```
+
+If you want to run an LLM locally, you can set ``model.llm_call_style=huggingface`` and ``model.name`` to the name of the model (e.g., ``Qwen/Qwen2-7B-Instruct``).
+
+
+
 ## Acknowledgement
 
 Our code is built on top of [RLBench](https://github.com/stepjam/RLBench) simulation environment and [Peract](https://github.com/peract/peract) codebase.

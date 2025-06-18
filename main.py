@@ -71,9 +71,12 @@ def eval_seed(eval_cfg,
     tasks = eval_cfg.rlbench.tasks
     rg = RolloutGenerator()
 
-    agent = RoboPromptAgent(eval_cfg.rlbench.task_name)
+    agent = RoboPromptAgent(eval_cfg.rlbench.task_name, eval_cfg.model)
     stat_accum = SimpleAccumulator(eval_video_fps=30)
 
+    # make the directory first so that the weightsdir is created
+    # we don't actually load the weights here
+    os.makedirs(eval_cfg.framework.logdir, exist_ok=True)
     env_runner = IndependentEnvRunner(
         train_env=None,
         agent=agent,
@@ -97,7 +100,7 @@ def eval_seed(eval_cfg,
     save_load_lock = manager.Lock()
     writer_lock = manager.Lock()
     
-    env_runner.start({"task": eval_cfg.framework.logdir}, save_load_lock, writer_lock,
+    env_runner.start({"task": 0}, save_load_lock, writer_lock,
                               env_config, 0,
                               eval_cfg.framework.eval_save_metrics,
                               eval_cfg.cinematic_recorder)
