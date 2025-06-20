@@ -23,7 +23,7 @@ def huggingface_call(model, tokenizer, messages):
         tokenize=False,
         add_generation_prompt=True
     )
-    model_inputs = tokenizer([text], return_tensors="pt").to(device)
+    model_inputs = tokenizer([text], return_tensors="pt").to('cuda')
 
     generated_ids = model.generate(
         model_inputs.input_ids,
@@ -90,12 +90,7 @@ class RoboPromptAgent(Agent):
                     {"role": "user", "content": user_prompt}
                 ]
 
-            client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-            completion = client.chat.completions.create(
-                model="gpt-4-turbo",
-                messages=messages
-                )
-            output_text = completion.choices[0].message.content
+            output_text = self.llm_call(messages)
                 
             print(f"Prediction:", output_text)
             return output_text

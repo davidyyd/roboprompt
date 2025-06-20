@@ -206,7 +206,6 @@ class base_task_handler:
         obs = form_obs(mask_dict, mask_id_to_real_name, point_cloud_dict)
 
         # during evaluation, randomly choose one batch of 10 demonstrations from the saved demonstrations
-        print(self.save_root)
         path = random.choice(glob.glob(os.path.join(self.save_root, "demonstrations", "*.txt")))
         demonstration = open(path, "r").read()
 
