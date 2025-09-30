@@ -72,6 +72,8 @@ If you want to run an LLM locally, you can set ``model.llm_call_style=huggingfac
 
 Our code is built on top of [RLBench](https://github.com/stepjam/RLBench) simulation environment and [Peract](https://github.com/peract/peract) codebase.
 
+This software is part of the BAIR Commons HIC Repository as of calendar year 2025.
+
 ## Citation
 If you find RoboPrompt helpful, please consider citing:
 ```bibtex
